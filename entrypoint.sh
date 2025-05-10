@@ -1,3 +1,3 @@
 #!/bin/bash
-
-node hello.js
+npm install
+npm start
