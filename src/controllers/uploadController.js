@@ -71,12 +71,16 @@ const uploadHandler = multer({
  */
 const uploadToSealosStorage = async (file, fileType) => {
     try {
+        console.log(`[uploadToSealosStorage] 开始上传文件: ${file.originalname}, 类型: ${fileType}, 大小: ${file.size} bytes`);
+
         // 生成文件名和存储路径
         const timestamp = Date.now();
         const randomString = Math.random().toString(36).substring(2, 10);
         const originalExt = path.extname(file.originalname) || '.jpg';
         const filename = `${timestamp}-${randomString}${originalExt}`;
         const key = `${fileType}/${filename}`;
+
+        console.log(`[uploadToSealosStorage] 生成的文件路径: ${key}`);
 
         // 设置上传参数
         const params = {
@@ -87,8 +91,12 @@ const uploadToSealosStorage = async (file, fileType) => {
             ACL: 'publicRead' // 设置为公开可读，便于直接访问
         };
 
+        console.log(`[uploadToSealosStorage] 准备上传到存储桶: ${bucketName}`);
+
         // 上传到对象存储
         const result = await s3Client.upload(params).promise();
+
+        console.log(`[uploadToSealosStorage] 上传成功, URL: ${result.Location}`);
 
         // 返回文件信息
         return {
@@ -100,7 +108,7 @@ const uploadToSealosStorage = async (file, fileType) => {
             type: fileType
         };
     } catch (error) {
-        console.error('上传到Sealos对象存储失败:', error);
+        console.error(`[uploadToSealosStorage] 上传失败: ${error.message}`, error);
         throw error;
     }
 };
@@ -116,33 +124,48 @@ const uploadToSealosStorage = async (file, fileType) => {
  * @param {Array} req.files - 上传的文件数组
  */
 const uploadFiles = async (req, res) => {
+    console.log(`[uploadFiles] 接收到上传请求，IP: ${req.ip}, 查询参数:`, req.query);
+
     try {
         // 中间件已处理文件上传，此处检查结果
         if (!req.files || req.files.length === 0) {
+            console.warn(`[uploadFiles] 未检测到文件, req.files: ${JSON.stringify(req.files)}`);
             return res.status(400).json({
                 success: false,
                 message: '没有上传任何文件'
             });
         }
 
+        console.log(`[uploadFiles] 检测到 ${req.files.length} 个文件待上传`);
+        req.files.forEach((file, index) => {
+            console.log(`[uploadFiles] 文件 ${index + 1}: 名称=${file.originalname}, 大小=${file.size}字节, 类型=${file.mimetype}`);
+        });
+
         // 处理所有上传的文件
+        console.log(`[uploadFiles] 开始处理上传的文件`);
         const uploadPromises = req.files.map(file => {
             // 确定文件类型，优先使用查询参数
             const fileType = req.query.type || getFileTypeFromMimetype(file.mimetype);
+            console.log(`[uploadFiles] 为文件 ${file.originalname} 确定类型: ${fileType}`);
 
             // 上传到Sealos对象存储
             return uploadToSealosStorage(file, fileType);
         });
 
         // 等待所有文件上传完成
+        console.log(`[uploadFiles] 等待所有文件上传完成...`);
         const files = await Promise.all(uploadPromises);
+        console.log(`[uploadFiles] 所有文件上传完成, 共 ${files.length} 个文件`);
 
         // 按类型分组文件URL
         const pictures = files.filter(file => file.type === 'image').map(file => file.url);
         const videos = files.filter(file => file.type === 'video').map(file => file.url);
         const covers = files.filter(file => file.type === 'cover').map(file => file.url);
 
+        console.log(`[uploadFiles] 文件分类统计: 图片=${pictures.length}, 视频=${videos.length}, 封面=${covers.length}`);
+
         // 返回成功响应
+        console.log(`[uploadFiles] 上传流程完成，返回成功响应`);
         res.status(200).json({
             success: true,
             message: '文件上传成功',
@@ -155,7 +178,8 @@ const uploadFiles = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('文件上传失败:', error);
+        console.error(`[uploadFiles] 文件上传失败: ${error.message}`, error);
+        console.error(`[uploadFiles] 错误堆栈: ${error.stack}`);
         res.status(500).json({
             success: false,
             message: '文件上传失败',
@@ -167,6 +191,8 @@ const uploadFiles = async (req, res) => {
 // 修改uploadController.js中的中间件配置
 // 支持多个可能的字段名
 const uploadMiddleware = (req, res, next) => {
+    console.log(`[uploadMiddleware] 开始处理文件上传请求, 内容类型: ${req.headers['content-type']}`);
+
     // 尝试不同的字段名
     const upload = multer({
         storage: storage,
@@ -176,7 +202,7 @@ const uploadMiddleware = (req, res, next) => {
 
     upload(req, res, function (err) {
         if (err) {
-            console.error('Multer错误:', err);
+            console.error(`[uploadMiddleware] Multer错误: ${err.message}`, err);
             return res.status(400).json({
                 success: false,
                 message: '文件上传配置错误',
@@ -184,6 +210,7 @@ const uploadMiddleware = (req, res, next) => {
             });
         }
 
+        console.log(`[uploadMiddleware] Multer处理完成, 检测到 ${req.files ? req.files.length : 0} 个文件`);
         // 继续处理
         next();
     });
