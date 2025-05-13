@@ -115,4 +115,24 @@ router.get('/releases/search', releaseController.searchReleases);
  */
 router.post('/releases/search', releaseController.searchReleases);
 
+/**
+ * @route PUT /api/release/:releaseID/delete-status
+ * @desc 更新游记的逻辑删除状态
+ * @access 公开
+ * @param {string} releaseID - 发布内容ID
+ * @param {number} deleteStatus - 删除状态：0表示已删除，1表示未删除
+ * @returns {Object} 成功或失败信息
+ */
+router.put('/release/:releaseID/delete-status', releaseController.updateReleaseDeleteStatus);
+
+/**
+ * @route GET /api/releases/deleted
+ * @desc 获取已逻辑删除的发布内容列表
+ * @access 公开
+ * @param {number} limit - 限制条数，默认为50 (可选)
+ * @param {number} offset - 偏移量，默认为0 (可选)
+ * @returns {Array} 已删除的发布内容列表
+ */
+router.get('/releases/deleted', releaseController.getDeletedReleases);
+
 module.exports = router; 

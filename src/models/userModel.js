@@ -55,15 +55,17 @@ const userModel = {
     insertTestData: async () => {
         try {
             // 生成测试密码的哈希值
-            const hashedPassword1 = await bcrypt.hash('password123', 10);
-            const hashedPassword2 = await bcrypt.hash('password456', 10);
+            const hashedPassword = await bcrypt.hash('password123', 10);
 
             // 插入测试用户
             await pool.query(`
         INSERT INTO users (userID, userName, passWord, \`release\`, liked, follow, avatar) VALUES
-        ('user1', 'testuser1', ?, '["release1", "release2"]', '["release3", "release4"]', '[]', 'https://example.com/avatar1.jpg'),
-        ('user2', 'testuser2', ?, '["release3"]', '["release1", "release2"]', '[]', 'https://example.com/avatar2.jpg')
-      `, [hashedPassword1, hashedPassword2]);
+        ('user1', '马铃薯', ?, '["release1", "release2", "release3", "release4", "release5", "release6", "release7", "release8", "release9", "release10", "release11", "release12"]', '["release13", "release24", "release35", "release46", "release57", "release58", "release59"]', '[]', 'https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062811531-z1tk879y.jpg'),
+        ('user2', 'KK', ?, '["release13", "release14", "release15", "release16", "release17", "release18", "release19", "release20", "release21", "release22", "release23", "release24"]', '["release1", "release10", "release25", "release36", "release47", "release52", "release60"]', '[]', 'https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062977221-mvp0p2ri.jpg'),
+        ('user3', '嘻嘻哈哈', ?, '["release25", "release26", "release27", "release28", "release29", "release30", "release31", "release32", "release33", "release34", "release35", "release36"]', '["release2", "release11", "release20", "release37", "release48", "release53", "release54", "release55"]', '[]', 'https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911500-0xfzbale.jpg'),
+        ('user4', '小小则', ?, '["release37", "release38", "release39", "release40", "release41", "release42", "release43", "release44", "release45", "release46", "release47", "release48"]', '["release3", "release12", "release21", "release30", "release49", "release56"]', '[]', 'https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747063023494-zib88x1k.jpg'),
+        ('user5', '发财学姐', ?, '["release49", "release50", "release51", "release52", "release53", "release54", "release55", "release56", "release57", "release58", "release59", "release60"]', '["release4", "release15", "release26", "release31", "release38", "release42", "release44", "release50", "release51"]', '[]', 'https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062977553-47mq5tlt.jpg')
+      `, [hashedPassword, hashedPassword, hashedPassword, hashedPassword, hashedPassword]);
 
             console.log('测试用户数据已插入');
         } catch (error) {

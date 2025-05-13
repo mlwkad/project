@@ -635,6 +635,80 @@ const releaseController = {
                 error: error.message
             });
         }
+    },
+
+    /**
+     * 更新游记的逻辑删除状态
+     * @param {Object} req.params - 请求参数
+     * @param {string} req.params.releaseID - 发布内容ID
+     * @param {Object} req.body - 请求体
+     * @param {number} req.body.deleteStatus - 删除状态：0表示已删除，1表示未删除
+     * @returns {Object} - 成功或失败信息
+     */
+    updateReleaseDeleteStatus: async (req, res) => {
+        try {
+            const { releaseID } = req.params;
+            const { deleteStatus } = req.body;
+
+            // 更新发布内容的删除状态
+            const success = await releaseModel.updateReleaseDeleteStatus(releaseID, deleteStatus);
+
+            if (success) {
+                res.status(200).json({
+                    success: true,
+                    message: '更新游记删除状态成功'
+                });
+            } else {
+                res.status(404).json({
+                    success: false,
+                    message: '发布内容不存在或更新失败'
+                });
+            }
+        } catch (error) {
+            console.error('更新游记删除状态失败:', error);
+            res.status(500).json({
+                success: false,
+                message: '服务器错误',
+                error: error.message
+            });
+        }
+    },
+
+    /**
+     * 获取已逻辑删除的发布内容列表
+     * @param {Object} req.query - 查询参数
+     * @param {number} req.query.limit - 限制条数，默认为50
+     * @param {number} req.query.offset - 偏移量，默认为0
+     * @returns {Array} - 已删除的发布内容列表
+     */
+    getDeletedReleases: async (req, res) => {
+        try {
+            const limit = parseInt(req.query.limit) || 50;
+            const offset = parseInt(req.query.offset) || 0;
+
+            // 获取已删除的发布内容
+            const deletedReleases = await releaseModel.getDeletedReleases(limit, offset);
+
+            res.status(200).json({
+                success: true,
+                message: '获取已删除发布内容列表成功',
+                data: {
+                    releases: deletedReleases,
+                    pagination: {
+                        limit,
+                        offset,
+                        total: deletedReleases.length
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('获取已删除发布内容列表失败:', error);
+            res.status(500).json({
+                success: false,
+                message: '服务器错误',
+                error: error.message
+            });
+        }
     }
 };
 
