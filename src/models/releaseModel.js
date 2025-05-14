@@ -220,7 +220,7 @@ const releaseModel = {
                 `SELECT r.*, u.userName, u.avatar 
                 FROM releases r
                 LEFT JOIN users u ON r.userID = u.userID
-                WHERE r.releaseID = ? AND r.\`delete\` = 1`,
+                WHERE r.releaseID = ?`,
                 [releaseID]
             );
 
