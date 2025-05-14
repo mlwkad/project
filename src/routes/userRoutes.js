@@ -1,10 +1,6 @@
-/**
- * 用户路由
- * 配置用户相关的API路由
- */
-const express = require('express');
-const router = express.Router();
-const userController = require('../controllers/userController');
+const express = require('express')
+const router = express.Router()
+const userController = require('../controllers/userController')
 
 /**
  * @route POST /api/checkLogin
@@ -14,7 +10,7 @@ const userController = require('../controllers/userController');
  * @param {string} passWord - 密码
  * @returns {Object} 用户信息（不包含密码）
  */
-router.post('/checkLogin', userController.checkLogin);
+router.post('/checkLogin', userController.checkLogin)
 
 /**
  * @route POST /api/signUp
@@ -25,7 +21,7 @@ router.post('/checkLogin', userController.checkLogin);
  * @param {string} avatar - 头像URL (可选)
  * @returns {Object} 创建的用户信息（不包含密码）
  */
-router.post('/signUp', userController.signUp);
+router.post('/signUp', userController.signUp)
 
 /**
  * @route GET /api/user/:userID
@@ -34,7 +30,7 @@ router.post('/signUp', userController.signUp);
  * @param {string} userID - 用户ID
  * @returns {Object} 用户信息（不包含密码）
  */
-router.get('/user/:userID', userController.getUserInfo);
+router.get('/user/:userID', userController.getUserInfo)
 
 /**
  * @route PUT /api/user/:userID
@@ -45,7 +41,7 @@ router.get('/user/:userID', userController.getUserInfo);
  * @param {string} avatar - 头像URL (可选)
  * @returns {Object} 更新后的用户信息
  */
-router.put('/user/:userID', userController.updateUserInfo);
+router.put('/user/:userID', userController.updateUserInfo)
 
 /**
  * @route GET /api/user/:userID/releases
@@ -54,7 +50,7 @@ router.put('/user/:userID', userController.updateUserInfo);
  * @param {string} userID - 用户ID
  * @returns {Array} 发布内容列表
  */
-router.get('/user/:userID/releases', userController.getUserReleases);
+router.get('/user/:userID/releases', userController.getUserReleases)
 
 /**
  * @route GET /api/user/:userID/liked
@@ -63,7 +59,7 @@ router.get('/user/:userID/releases', userController.getUserReleases);
  * @param {string} userID - 用户ID
  * @returns {Array} 喜欢的内容列表
  */
-router.get('/user/:userID/liked', userController.getUserLiked);
+router.get('/user/:userID/liked', userController.getUserLiked)
 
 /**
  * @route POST /api/user/:userID/liked
@@ -73,7 +69,7 @@ router.get('/user/:userID/liked', userController.getUserLiked);
  * @param {string} releaseID - 发布内容ID
  * @returns {Object} 成功消息
  */
-router.post('/user/:userID/liked', userController.addLiked);
+router.post('/user/:userID/liked', userController.addLiked)
 
 /**
  * @route DELETE /api/user/:userID/liked/:releaseID
@@ -83,7 +79,7 @@ router.post('/user/:userID/liked', userController.addLiked);
  * @param {string} releaseID - 发布内容ID
  * @returns {Object} 成功消息
  */
-router.delete('/user/:userID/liked/:releaseID', userController.removeLiked);
+router.delete('/user/:userID/liked/:releaseID', userController.removeLiked)
 
 /**
  * @route POST /api/user/:userID/follow
@@ -93,7 +89,7 @@ router.delete('/user/:userID/liked/:releaseID', userController.removeLiked);
  * @param {string} followUserID - 要关注的用户ID
  * @returns {Object} 成功消息
  */
-router.post('/user/:userID/follow', userController.followUser);
+router.post('/user/:userID/follow', userController.followUser)
 
 /**
  * @route DELETE /api/user/:userID/follow/:followUserID
@@ -103,7 +99,7 @@ router.post('/user/:userID/follow', userController.followUser);
  * @param {string} followUserID - 要取消关注的用户ID
  * @returns {Object} 成功消息
  */
-router.delete('/user/:userID/follow/:followUserID', userController.unfollowUser);
+router.delete('/user/:userID/follow/:followUserID', userController.unfollowUser)
 
 /**
  * @route GET /api/user/:userID/following
@@ -112,6 +108,6 @@ router.delete('/user/:userID/follow/:followUserID', userController.unfollowUser)
  * @param {string} userID - 用户ID
  * @returns {Array} 关注的用户ID列表
  */
-router.get('/user/:userID/following', userController.getUserFollowing);
+router.get('/user/:userID/following', userController.getUserFollowing)
 
-module.exports = router; 
+module.exports = router;

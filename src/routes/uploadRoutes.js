@@ -1,10 +1,6 @@
-/**
- * 上传路由
- * 配置文件上传相关的API路由
- */
-const express = require('express');
-const router = express.Router();
-const { uploadMiddleware, uploadFiles } = require('../controllers/uploadController');
+const express = require('express')
+const router = express.Router()
+const { uploadMiddleware, uploadFiles } = require('../controllers/uploadController')
 
 /**
  * @route POST /api/upload
@@ -18,6 +14,6 @@ const { uploadMiddleware, uploadFiles } = require('../controllers/uploadControll
  * - 普通上传: POST /api/upload
  * - 上传: POST /api/upload?type=可选值：image, video, cover
  */
-router.post('/upload', uploadMiddleware, uploadFiles);
+router.post('/upload', uploadMiddleware, uploadFiles)
 
-module.exports = router; 
+module.exports = router

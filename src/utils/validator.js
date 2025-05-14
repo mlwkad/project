@@ -1,8 +1,3 @@
-/**
- * 验证工具类
- * 提供常用的输入验证函数
- */
-
 const validator = {
     /**
      * 验证是否为空值
@@ -16,7 +11,7 @@ const validator = {
             (typeof value === 'string' && value.trim() === '') ||
             (Array.isArray(value) && value.length === 0) ||
             (typeof value === 'object' && Object.keys(value).length === 0)
-        );
+        )
     },
 
     /**
@@ -25,8 +20,8 @@ const validator = {
      * @returns {boolean} 是否合法
      */
     isValidUsername: (username) => {
-        const regex = /^[\u4e00-\u9fa5A-Za-z0-9]{2,20}$/;
-        return regex.test(username);
+        const regex = /^[\u4e00-\u9fa5A-Za-z0-9]{2,20}$/
+        return regex.test(username)
     },
 
     /**
@@ -35,8 +30,8 @@ const validator = {
      * @returns {boolean} 是否合法
      */
     isValidPassword: (password) => {
-        const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
-        return regex.test(password);
+        const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/
+        return regex.test(password)
     },
 
     /**
@@ -46,10 +41,10 @@ const validator = {
      */
     isValidUrl: (url) => {
         try {
-            new URL(url);
-            return true;
+            new URL(url)
+            return true
         } catch (e) {
-            return false;
+            return false
         }
     },
 
@@ -71,7 +66,7 @@ const validator = {
             .replace(/\n/g, '\\n')
             .replace(/\r/g, '\\r')
             .replace(/\x00/g, '\\0')
-            .replace(/\x1a/g, '\\Z');
+            .replace(/\x1a/g, '\\Z')
     },
 
     /**
@@ -81,12 +76,12 @@ const validator = {
      */
     isNumber: (value) => {
         if (typeof value === 'number') {
-            return !isNaN(value);
+            return !isNaN(value)
         }
         if (typeof value === 'string') {
-            return !isNaN(parseFloat(value)) && isFinite(value);
+            return !isNaN(parseFloat(value)) && isFinite(value)
         }
-        return false;
+        return false
     },
 
     /**
@@ -96,12 +91,12 @@ const validator = {
      */
     isInteger: (value) => {
         if (typeof value === 'number') {
-            return Number.isInteger(value);
+            return Number.isInteger(value)
         }
         if (typeof value === 'string') {
-            return /^-?\d+$/.test(value);
+            return /^-?\d+$/.test(value)
         }
-        return false;
+        return false
     },
 
     /**
@@ -111,12 +106,12 @@ const validator = {
      */
     isPositiveInteger: (value) => {
         if (typeof value === 'number') {
-            return Number.isInteger(value) && value > 0;
+            return Number.isInteger(value) && value > 0
         }
         if (typeof value === 'string') {
-            return /^\d+$/.test(value) && parseInt(value) > 0;
+            return /^\d+$/.test(value) && parseInt(value) > 0
         }
-        return false;
+        return false
     },
 
     /**
@@ -125,8 +120,8 @@ const validator = {
      * @returns {boolean} 是否为数组
      */
     isArray: (value) => {
-        return Array.isArray(value);
+        return Array.isArray(value)
     }
-};
+}
 
-module.exports = validator; 
+module.exports = validator

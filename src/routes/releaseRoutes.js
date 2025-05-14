@@ -1,10 +1,6 @@
-/**
- * 发布内容路由
- * 配置发布内容相关的API路由
- */
-const express = require('express');
-const router = express.Router();
-const releaseController = require('../controllers/releaseController');
+const express = require('express')
+const router = express.Router()
+const releaseController = require('../controllers/releaseController')
 
 /**
  * @route GET /api/releases
@@ -15,7 +11,7 @@ const releaseController = require('../controllers/releaseController');
  * @param {string} state - 审核状态，默认为'resolve' (可选)
  * @returns {Array} 发布内容列表
  */
-router.get('/releases', releaseController.getAllReleases);
+router.get('/releases', releaseController.getAllReleases)
 
 /**
  * @route GET /api/release/:releaseID
@@ -24,7 +20,7 @@ router.get('/releases', releaseController.getAllReleases);
  * @param {string} releaseID - 发布内容ID
  * @returns {Object} 发布内容详情
  */
-router.get('/release/:releaseID', releaseController.getReleaseByID);
+router.get('/release/:releaseID', releaseController.getReleaseByID)
 
 /**
  * @route POST /api/release
@@ -42,7 +38,7 @@ router.get('/release/:releaseID', releaseController.getReleaseByID);
  * @param {string} location - 位置
  * @returns {Object} 创建的发布内容
  */
-router.post('/release', releaseController.createRelease);
+router.post('/release', releaseController.createRelease)
 
 /**
  * @route PUT /api/release/:releaseID
@@ -61,7 +57,7 @@ router.post('/release', releaseController.createRelease);
  * @param {string} location - 位置 (可选)
  * @returns {Object} 更新后的发布内容
  */
-router.put('/release/:releaseID', releaseController.updateRelease);
+router.put('/release/:releaseID', releaseController.updateRelease)
 
 /**
  * @route PUT /api/release/:releaseID/state
@@ -72,7 +68,7 @@ router.put('/release/:releaseID', releaseController.updateRelease);
  * @param {string} reason - 未通过原因（当状态为reject时必须提供）
  * @returns {Object} 更新后的发布内容
  */
-router.put('/release/:releaseID/state', releaseController.updateReleaseState);
+router.put('/release/:releaseID/state', releaseController.updateReleaseState)
 
 /**
  * @route DELETE /api/release/:releaseID
@@ -82,7 +78,7 @@ router.put('/release/:releaseID/state', releaseController.updateReleaseState);
  * @param {string} userID - 用户ID
  * @returns {Object} 成功消息
  */
-router.delete('/release/:releaseID', releaseController.deleteRelease);
+router.delete('/release/:releaseID', releaseController.deleteRelease)
 
 /**
  * @route GET /api/releases/user/:userID
@@ -91,7 +87,7 @@ router.delete('/release/:releaseID', releaseController.deleteRelease);
  * @param {string} userID - 用户ID
  * @returns {Array} 发布内容列表
  */
-router.get('/releases/user/:userID', releaseController.getReleasesByUserID);
+router.get('/releases/user/:userID', releaseController.getReleasesByUserID)
 
 /**
  * @route GET /api/releases/search
@@ -102,7 +98,7 @@ router.get('/releases/user/:userID', releaseController.getReleasesByUserID);
  * @param {string} state - 审核状态，默认为'resolve' (可选)
  * @returns {Array} 搜索结果列表
  */
-router.get('/releases/search', releaseController.searchReleases);
+router.get('/releases/search', releaseController.searchReleases)
 
 /**
  * @route POST /api/releases/search
@@ -113,7 +109,7 @@ router.get('/releases/search', releaseController.searchReleases);
  * @param {string} state - 审核状态，默认为'resolve' (可选)
  * @returns {Array} 搜索结果列表
  */
-router.post('/releases/search', releaseController.searchReleases);
+router.post('/releases/search', releaseController.searchReleases)
 
 /**
  * @route PUT /api/release/:releaseID/delete-status
@@ -123,7 +119,7 @@ router.post('/releases/search', releaseController.searchReleases);
  * @param {number} deleteStatus - 删除状态：0表示已删除，1表示未删除
  * @returns {Object} 成功或失败信息
  */
-router.put('/release/:releaseID/delete-status', releaseController.updateReleaseDeleteStatus);
+router.put('/release/:releaseID/delete-status', releaseController.updateReleaseDeleteStatus)
 
 /**
  * @route GET /api/releases/deleted
@@ -133,6 +129,6 @@ router.put('/release/:releaseID/delete-status', releaseController.updateReleaseD
  * @param {number} offset - 偏移量，默认为0 (可选)
  * @returns {Array} 已删除的发布内容列表
  */
-router.get('/releases/deleted', releaseController.getDeletedReleases);
+router.get('/releases/deleted', releaseController.getDeletedReleases)
 
-module.exports = router; 
+module.exports = router;

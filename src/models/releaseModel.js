@@ -1,8 +1,4 @@
-/**
- * 发布内容模型
- * 处理与发布内容相关的数据库操作
- */
-const pool = require('../config/db');
+const pool = require('../config/db')
 
 const releaseModel = {
     /**
@@ -48,18 +44,18 @@ const releaseModel = {
           updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
           FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE
         )
-      `);
-            console.log('发布内容表初始化成功');
+      `)
+            console.log('发布内容表初始化成功')
 
             // 检查是否需要插入测试数据
-            const [rows] = await pool.query('SELECT COUNT(*) as count FROM releases');
+            const [rows] = await pool.query('SELECT COUNT(*) as count FROM releases')
             if (rows[0].count === 0) {
                 // 插入测试数据
-                await releaseModel.insertTestData();
+                await releaseModel.insertTestData()
             }
         } catch (error) {
-            console.error('初始化发布内容表失败:', error);
-            throw error;
+            console.error('初始化发布内容表失败:', error)
+            throw error
         }
     },
 
@@ -120,7 +116,7 @@ const releaseModel = {
         ('release18', 'user2', '木渎古镇行', 160, 520, 3, '木渎古镇有"吴中第一镇"之称，镇内园林众多，山水相映，是文人墨客的理想栖居地。', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062977376-a65jxuvu.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062977461-rh0qwue6.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062977553-47mq5tlt.jpg"]', '[]', NULL, '苏州市吴中区木渎镇', 'resolve', '', 1),
         ('release19', 'user2', '网师园小记', 110, 340, 1, '网师园虽小巧却精致无比，"咫尺山林"的造园理念在此体现得淋漓尽致，是苏州园林中的精品。', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062977653-anv70wwt.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747063023406-ib5myy7r.jpg"]', '[]', NULL, '苏州市姑苏区带城桥路', 'resolve', '', 1),
         ('release20', 'user2', '苏州丝绸', 90, 280, 2, '参观苏州丝绸博物馆，了解苏州丝绸发展史，欣赏精美丝绸制品，感受吴地的丝绸文化。', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747063023494-zib88x1k.jpg"]', '[]', NULL, '苏州市姑苏区丝绸博物馆', 'resolve', '', 1)
-      `);
+      `)
 
             // 插入中间部分的测试发布内容
             await pool.query(`
@@ -145,7 +141,7 @@ const releaseModel = {
         ('release38', 'user4', '苏州科技馆', 150, 280, 3, '苏州科技馆通过互动展项和科普展示，让游客了解前沿科技，是寓教于乐的好去处。', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062811941-4s1hb6ok.jpg"]', '[]', NULL, '苏州市高新区科技馆', 'resolve', '', 1),
         ('release39', 'user4', '常熟兴福寺', 140, 320, 2, '兴福寺历史悠久，寺内古木参天，殿宇肃穆，钟声悠扬，是体验佛教文化的清净之地。', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062812071-xo2zmpa9.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911376-9r0e286p.jpg"]', '[]', NULL, '苏州市常熟市兴福寺', 'resolve', '', 1),
         ('release40', 'user4', '昆山锦溪古镇', 180, 520, 3, '锦溪古镇水网密布，有"江南水乡第一镇"之称，古桥、老街、水巷勾勒出一幅江南水墨画。', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911500-0xfzbale.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911596-g8zo4vit.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911705-sdqzgucp.jpg"]', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/video/1747062812242-r2s0gzlg.mp4"]', 'https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/cover/1747062812379-djpacmlc.jpg', '苏州市昆山市锦溪镇', 'resolve', '', 1)
-      `);
+      `)
 
             // 插入剩余的测试发布内容
             await pool.query(`
@@ -170,12 +166,12 @@ const releaseModel = {
         ('release58', 'user5', '冯梦龙故居', 90, 280, 1, '参观冯梦龙故居，了解这位明代文学家的生平事迹，感受苏州深厚的文化底蕴。', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062811941-4s1hb6ok.jpg"]', '[]', NULL, '苏州市吴江区冯梦龙故居', 'resolve', '', 1),
         ('release59', 'user5', '苏州园林博物馆', 130, 400, 2, '苏州园林博物馆全面展示了苏州园林的发展历史和艺术特色，是了解苏州园林文化的窗口。', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062812071-xo2zmpa9.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911376-9r0e286p.jpg"]', '[]', NULL, '苏州市姑苏区园林博物馆', 'resolve', '', 1),
         ('release60', 'user5', '太湖明珠', 180, 550, 4, '太湖明珠是苏州太湖国家旅游度假区的标志性建筑，登上明珠塔可俯瞰整个太湖美景。', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911500-0xfzbale.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911596-g8zo4vit.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911705-sdqzgucp.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062911818-dyxgbcx3.jpg", "https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/image/1747062977221-mvp0p2ri.jpg"]', '["https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/video/1747062977831-6pjxzbst.mp4"]', 'https://objectstorageapi.bja.sealos.run/bpj63jw3-travel-app-uploads/cover/1747062977958-zkywy70r.jpg', '苏州市吴中区太湖国家旅游度假区', 'resolve', '', 1)
-      `);
+      `)
 
-            console.log('测试发布内容数据已插入');
+            console.log('测试发布内容数据已插入')
         } catch (error) {
-            console.error('插入测试数据失败:', error);
-            throw error;
+            console.error('插入测试数据失败:', error)
+            throw error
         }
     },
 
@@ -195,17 +191,16 @@ const releaseModel = {
                 WHERE r.state = ? AND r.\`delete\` = 1
                 ORDER BY r.createdAt DESC LIMIT ? OFFSET ?`,
                 [state, limit, offset]
-            );
-
+            )
             // 处理返回的数据，确保图片和视频是JSON对象
             return rows.map(row => ({
                 ...row,
                 pictures: JSON.parse(row.pictures || '[]'),
                 videos: JSON.parse(row.videos || '[]')
-            }));
+            }))
         } catch (error) {
-            console.error('获取发布内容列表失败:', error);
-            throw error;
+            console.error('获取发布内容列表失败:', error)
+            throw error
         }
     },
 
@@ -222,20 +217,18 @@ const releaseModel = {
                 LEFT JOIN users u ON r.userID = u.userID
                 WHERE r.releaseID = ?`,
                 [releaseID]
-            );
-
-            if (!rows.length) return null;
-
+            )
+            if (!rows.length) return null
             // 处理返回的数据，确保图片和视频是JSON对象
             const release = rows[0];
             return {
                 ...release,
                 pictures: JSON.parse(release.pictures || '[]'),
                 videos: JSON.parse(release.videos || '[]')
-            };
+            }
         } catch (error) {
-            console.error('获取发布内容失败:', error);
-            throw error;
+            console.error('获取发布内容失败:', error)
+            throw error
         }
     },
 
@@ -253,17 +246,16 @@ const releaseModel = {
                 WHERE r.userID = ? AND r.\`delete\` = 1
                 ORDER BY r.createdAt DESC`,
                 [userID]
-            );
-
+            )
             // 处理返回的数据，确保图片和视频是JSON对象
             return rows.map(row => ({
                 ...row,
                 pictures: JSON.parse(row.pictures || '[]'),
                 videos: JSON.parse(row.videos || '[]')
-            }));
+            }))
         } catch (error) {
-            console.error('获取用户发布内容失败:', error);
-            throw error;
+            console.error('获取用户发布内容失败:', error)
+            throw error
         }
     },
 
@@ -286,31 +278,27 @@ const releaseModel = {
                 videos,
                 cover,
                 location
-            } = releaseData;
-
+            } = releaseData
             // 检查releaseID是否已存在
-            const existingRelease = await releaseModel.getReleaseByID(releaseID);
+            const existingRelease = await releaseModel.getReleaseByID(releaseID)
             if (existingRelease) {
-                throw new Error('发布内容ID已存在');
+                throw new Error('发布内容ID已存在')
             }
-
             // 处理图片和视频数组
-            const picturesJSON = pictures ? JSON.stringify(pictures) : '[]';
-            const videosJSON = videos ? JSON.stringify(videos) : '[]';
-
+            const picturesJSON = pictures ? JSON.stringify(pictures) : '[]'
+            const videosJSON = videos ? JSON.stringify(videos) : '[]'
             // 插入新发布内容，默认审核状态为wait，原因为待审核，默认未删除
             await pool.query(
                 `INSERT INTO releases 
          (releaseID, userID, title, playTime, money, personNum, content, pictures, videos, cover, location, state, reason, \`delete\`) 
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'wait', '待审核', 1)`,
                 [releaseID, userID, title, playTime, money, personNum, content, picturesJSON, videosJSON, cover || null, location]
-            );
-
+            )
             // 返回创建的发布内容
-            return await releaseModel.getReleaseByID(releaseID);
+            return await releaseModel.getReleaseByID(releaseID)
         } catch (error) {
-            console.error('创建发布内容失败:', error);
-            throw error;
+            console.error('创建发布内容失败:', error)
+            throw error
         }
     },
 
@@ -322,42 +310,36 @@ const releaseModel = {
      */
     updateRelease: async (releaseID, updateData) => {
         try {
-            const allowedFields = ['title', 'playTime', 'money', 'personNum', 'content', 'pictures', 'videos', 'cover', 'location', 'state', 'reason'];
-            const updates = [];
-            const values = [];
-
+            const allowedFields = ['title', 'playTime', 'money', 'personNum', 'content', 'pictures', 'videos', 'cover', 'location', 'state', 'reason']
+            const updates = []
+            const values = []
             // 构建更新字段
             for (const field of allowedFields) {
                 if (updateData[field] !== undefined) {
-                    updates.push(`${field} = ?`);
-
+                    updates.push(`${field} = ?`)
                     // 处理JSON字段
                     if (field === 'pictures' || field === 'videos') {
-                        values.push(JSON.stringify(updateData[field]));
+                        values.push(JSON.stringify(updateData[field]))
                     } else {
-                        values.push(updateData[field]);
+                        values.push(updateData[field])
                     }
                 }
             }
-
             if (updates.length === 0) {
-                throw new Error('没有提供有效的更新字段');
+                throw new Error('没有提供有效的更新字段')
             }
-
             // 添加releaseID作为条件
             values.push(releaseID);
-
             // 执行更新
             await pool.query(
                 `UPDATE releases SET ${updates.join(', ')} WHERE releaseID = ?`,
                 values
-            );
-
+            )
             // 返回更新后的发布内容
-            return await releaseModel.getReleaseByID(releaseID);
+            return await releaseModel.getReleaseByID(releaseID)
         } catch (error) {
-            console.error('更新发布内容失败:', error);
-            throw error;
+            console.error('更新发布内容失败:', error)
+            throw error
         }
     },
 
@@ -374,12 +356,10 @@ const releaseModel = {
             if (!['wait', 'resolve', 'reject'].includes(state)) {
                 throw new Error('无效的审核状态值');
             }
-
             // 如果状态为reject，必须提供原因
             if (state === 'reject' && (!reason || reason.trim() === '')) {
                 throw new Error('拒绝时必须提供原因');
             }
-
             // 设置默认原因
             let updatedReason = reason;
             if (state === 'wait') {
@@ -387,18 +367,16 @@ const releaseModel = {
             } else if (state === 'resolve' && (!reason || reason.trim() === '')) {
                 updatedReason = '';
             }
-
             // 执行更新
             await pool.query(
                 `UPDATE releases SET state = ?, reason = ? WHERE releaseID = ?`,
                 [state, updatedReason, releaseID]
-            );
-
+            )
             // 返回更新后的发布内容
-            return await releaseModel.getReleaseByID(releaseID);
+            return await releaseModel.getReleaseByID(releaseID)
         } catch (error) {
-            console.error('更新游记审核状态失败:', error);
-            throw error;
+            console.error('更新游记审核状态失败:', error)
+            throw error
         }
     },
 
@@ -412,11 +390,11 @@ const releaseModel = {
             const [result] = await pool.query(
                 'DELETE FROM releases WHERE releaseID = ?',
                 [releaseID]
-            );
+            )
             return result.affectedRows > 0;
         } catch (error) {
-            console.error('删除发布内容失败:', error);
-            throw error;
+            console.error('删除发布内容失败:', error)
+            throw error
         }
     },
 
@@ -428,11 +406,10 @@ const releaseModel = {
     getReleasesByIDs: async (releaseIDs) => {
         try {
             if (!releaseIDs || releaseIDs.length === 0) {
-                return [];
+                return []
             }
-
             // 使用 IN 操作符查询多个ID
-            const placeholders = releaseIDs.map(() => '?').join(',');
+            const placeholders = releaseIDs.map(() => '?').join(',')
             const [rows] = await pool.query(
                 `SELECT r.*, u.userName, u.avatar 
                 FROM releases r
@@ -440,17 +417,16 @@ const releaseModel = {
                 WHERE r.releaseID IN (${placeholders}) AND r.\`delete\` = 1
                 ORDER BY r.createdAt DESC`,
                 releaseIDs
-            );
-
+            )
             // 处理返回的数据，确保图片和视频是JSON对象
             return rows.map(row => ({
                 ...row,
                 pictures: JSON.parse(row.pictures || '[]'),
                 videos: JSON.parse(row.videos || '[]')
-            }));
+            }))
         } catch (error) {
-            console.error('批量获取发布内容失败:', error);
-            throw error;
+            console.error('批量获取发布内容失败:', error)
+            throw error
         }
     },
 
@@ -462,8 +438,7 @@ const releaseModel = {
      */
     searchReleasesByTitle: async (title, state = 'resolve') => {
         try {
-            console.log(`[DEBUG] 开始搜索标题含有 "${title}" 的发布内容，状态为 ${state}`);
-
+            console.log(`[DEBUG] 开始搜索标题含有 "${title}" 的发布内容，状态为 ${state}`)
             const [rows] = await pool.query(
                 `SELECT r.*, u.userName, u.avatar 
                 FROM releases r
@@ -471,25 +446,23 @@ const releaseModel = {
                 WHERE r.title LIKE ? AND r.state = ? AND r.\`delete\` = 1
                 ORDER BY r.createdAt DESC`,
                 [`%${title}%`, state]
-            );
-
-            console.log(`[DEBUG] 标题搜索结果数量: ${rows.length}`);
+            )
+            console.log(`[DEBUG] 标题搜索结果数量: ${rows.length}`)
             if (rows.length > 0) {
                 console.log(`[DEBUG] 搜索到的标题:`);
                 rows.forEach((row, index) => {
-                    console.log(`[DEBUG] ${index + 1}. "${row.title}" (ID: ${row.releaseID})`);
-                });
+                    console.log(`[DEBUG] ${index + 1}. "${row.title}" (ID: ${row.releaseID})`)
+                })
             }
-
             // 处理返回的数据，确保图片和视频是JSON对象
             return rows.map(row => ({
                 ...row,
                 pictures: JSON.parse(row.pictures || '[]'),
                 videos: JSON.parse(row.videos || '[]')
-            }));
+            }))
         } catch (error) {
-            console.error('根据标题搜索发布内容失败:', error);
-            throw error;
+            console.error('根据标题搜索发布内容失败:', error)
+            throw error
         }
     },
 
@@ -508,17 +481,16 @@ const releaseModel = {
                 WHERE u.userName = ? AND r.state = ? AND r.\`delete\` = 1
                 ORDER BY r.createdAt DESC`,
                 [userName, state]
-            );
-
+            )
             // 处理返回的数据，确保图片和视频是JSON对象
             return rows.map(row => ({
                 ...row,
                 pictures: JSON.parse(row.pictures || '[]'),
                 videos: JSON.parse(row.videos || '[]')
-            }));
+            }))
         } catch (error) {
-            console.error('根据用户名搜索发布内容失败:', error);
-            throw error;
+            console.error('根据用户名搜索发布内容失败:', error)
+            throw error
         }
     },
 
@@ -537,17 +509,16 @@ const releaseModel = {
                 WHERE r.userID = ? AND r.title LIKE ? AND r.\`delete\` = 1
                 ORDER BY r.createdAt DESC`,
                 [userID, `%${title}%`]
-            );
-
+            )
             // 处理返回的数据，确保图片和视频是JSON对象
             return rows.map(row => ({
                 ...row,
                 pictures: JSON.parse(row.pictures || '[]'),
                 videos: JSON.parse(row.videos || '[]')
-            }));
+            }))
         } catch (error) {
-            console.error('同时根据用户ID和标题搜索发布内容失败:', error);
-            throw error;
+            console.error('同时根据用户ID和标题搜索发布内容失败:', error)
+            throw error
         }
     },
 
@@ -560,13 +531,11 @@ const releaseModel = {
     getReleasesByUserIDs: async (userIDs, state = 'resolve') => {
         try {
             if (!userIDs || userIDs.length === 0) {
-                return [];
+                return []
             }
-
             // 使用 IN 操作符查询多个用户ID
-            const placeholders = userIDs.map(() => '?').join(',');
-            const parameters = [...userIDs, state];
-
+            const placeholders = userIDs.map(() => '?').join(',')
+            const parameters = [...userIDs, state]
             const [rows] = await pool.query(
                 `SELECT r.*, u.userName, u.avatar 
                 FROM releases r
@@ -574,17 +543,16 @@ const releaseModel = {
                 WHERE r.userID IN (${placeholders}) AND r.state = ? AND r.\`delete\` = 1
                 ORDER BY r.createdAt DESC`,
                 parameters
-            );
-
+            )
             // 处理返回的数据，确保图片和视频是JSON对象
             return rows.map(row => ({
                 ...row,
                 pictures: JSON.parse(row.pictures || '[]'),
                 videos: JSON.parse(row.videos || '[]')
-            }));
+            }))
         } catch (error) {
-            console.error('批量获取用户发布内容失败:', error);
-            throw error;
+            console.error('批量获取用户发布内容失败:', error)
+            throw error
         }
     },
 
@@ -598,19 +566,17 @@ const releaseModel = {
         try {
             // 验证删除状态值
             if (![0, 1].includes(deleteStatus)) {
-                throw new Error('无效的删除状态值，只能是0或1');
+                throw new Error('无效的删除状态值，只能是0或1')
             }
-
             // 执行更新
             const [result] = await pool.query(
                 `UPDATE releases SET \`delete\` = ? WHERE releaseID = ?`,
                 [deleteStatus, releaseID]
-            );
-
+            )
             return result.affectedRows > 0;
         } catch (error) {
-            console.error('更新游记逻辑删除状态失败:', error);
-            throw error;
+            console.error('更新游记逻辑删除状态失败:', error)
+            throw error
         }
     },
 
@@ -629,19 +595,18 @@ const releaseModel = {
                 WHERE r.\`delete\` = 0
                 ORDER BY r.createdAt DESC LIMIT ? OFFSET ?`,
                 [limit, offset]
-            );
-
+            )
             // 处理返回的数据，确保图片和视频是JSON对象
             return rows.map(row => ({
                 ...row,
                 pictures: JSON.parse(row.pictures || '[]'),
                 videos: JSON.parse(row.videos || '[]')
-            }));
+            }))
         } catch (error) {
-            console.error('获取已删除发布内容列表失败:', error);
-            throw error;
+            console.error('获取已删除发布内容列表失败:', error)
+            throw error
         }
     }
-};
+}
 
-module.exports = releaseModel; 
+module.exports = releaseModel

@@ -78,12 +78,12 @@ wss.on('connection', (ws) => {  // WebSocket 的实例,表示单个客户端与�
 })
 
 // 中间件配置
-app.use(cors(config.cors));  // 使用配置的CORS设置
-app.use(bodyParser.json());  // 解析json请求体
-app.use(bodyParser.urlencoded({ extended: true }));  // 解析urlencoded请求体
+app.use(cors(config.cors))  // 使用配置的CORS设置
+app.use(bodyParser.json()) // 解析json请求体
+app.use(bodyParser.urlencoded({ extended: true }))  // 解析urlencoded请求体
 
 // 静态文件服务
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')))
 
 // 路由配置
 app.use('/api', userRoutes);
@@ -92,42 +92,34 @@ app.use('/api', uploadRoutes);
 
 // 首页路由
 app.get('/', (req, res) => {
-    res.send('旅游信息分享平台API服务器');
-});
+    res.send('旅游信息分享平台API服务器')
+})
 
 // 初始化数据库表
 const initDatabase = async () => {
     try {
-        // 先初始化用户表
-        await userModel.initTable();
-
-        // 再初始化发布内容表 (因为有外键依赖)
-        await releaseModel.initTable();
-
-        console.log('数据库初始化完成');
+        await userModel.initTable()
+        await releaseModel.initTable()
+        console.log('数据库初始化完成')
     } catch (error) {
-        console.error('数据库初始化失败:', error);
-        process.exit(1);
+        console.error('数据库初始化失败:', error)
+        process.exit(1)
     }
 }
 
 // 启动服务器
 const startServer = async () => {
     try {
-        // 初始化数据库
-        await initDatabase();
-
-        // 启动HTTP服务
+        await initDatabase()
         server.listen(PORT, () => {
-            console.log(`服务器运行在端口 ${PORT}`);
-            console.log(`访问地址: ${config.baseUrl}`);
-            console.log(`WebSocket地址: ${config.wsUrl}`);
-        });
+            console.log(`服务器运行在端口 ${PORT}`)
+            console.log(`访问地址: ${config.baseUrl}`)
+            console.log(`WebSocket地址: ${config.wsUrl}`)
+        })
     } catch (error) {
-        console.error('启动服务器失败:', error);
-        process.exit(1);
+        console.error('启动服务器失败:', error)
+        process.exit(1)
     }
-};
+}
 
-// 启动应用
-startServer(); 
+startServer()

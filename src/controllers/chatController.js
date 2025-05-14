@@ -7,11 +7,9 @@ const XUNFEI_WS_URL = 'wss://spark-api.xf-yun.com/v3.5/chat' // WebSocket API UR
 // const API_PASSWORD = 'ShpsjHBxeqSsFfTcDJGk:oUuYyhMCunBDegUnKqrS'  //lite模型
 const API_PASSWORD = 'aTshaQawqHQfFnyEYJpM:HDtHRUGpERoilPpbhrON'  //MAX模型
 
-// 过滤特殊字符的函数
 const filterSpecialCharacters = (text) => {
-    if (!text) return '';
-    // 过滤掉特殊字符如*#等，可以根据需要添加更多字符
-    return text.replace(/[*#~`@$%^&()=+{}\[\]|\\<>]/g, '');
+    if (!text) return ''
+    return text.replace(/[*#~`@$%^&()=+{}\[\]|\\<>]/g, '')
 }
 
 // 解析API_PASSWORD为appid、apikey和apisecret
@@ -69,7 +67,6 @@ const chatController = {
                 // 6. 发送请求
                 xfWs.send(JSON.stringify(requestData))
             })
-
             // 7. 接收消息
             xfWs.on('message', (data) => {
                 try {
@@ -86,14 +83,13 @@ const chatController = {
                     // 9. 提取内容
                     if (response.payload && response.payload.choices) {
                         if (response.payload.choices.text) {
-                            // Handle array or object response format
-                            let content = '';
+                            let content = ''
                             if (Array.isArray(response.payload.choices.text)) {
-                                content = response.payload.choices.text[0]?.content || '';
+                                content = response.payload.choices.text[0]?.content || ''
                             } else if (typeof response.payload.choices.text === 'object') {
-                                content = response.payload.choices.text.content || '';
+                                content = response.payload.choices.text.content || ''
                             } else {
-                                content = String(response.payload.choices.text);
+                                content = String(response.payload.choices.text)
                             }
 
                             clientWs.send(JSON.stringify({
@@ -101,16 +97,15 @@ const chatController = {
                                 content: filterSpecialCharacters(content)
                             }))
                         }
-
                         // 处理在线搜索内容
                         if (response.payload.choices.plugin_output &&
                             response.payload.choices.plugin_output.web_search &&
                             response.payload.choices.plugin_output.web_search.output) {
-                            const onlineInfo = response.payload.choices.plugin_output.web_search.output;
+                            const onlineInfo = response.payload.choices.plugin_output.web_search.output
                             clientWs.send(JSON.stringify({
                                 type: 'chat',
                                 onlineInfo: filterSpecialCharacters(onlineInfo)
-                            }));
+                            }))
                         }
                     }
                     // 10. 处理对话结束
@@ -119,9 +114,9 @@ const chatController = {
                         xfWs.close()
                     }
                 } catch (e) {
-                    console.log('处理响应消息失败:', e);
+                    console.log('处理响应消息失败:', e)
                 }
-            });
+            })
             // 11. 处理WebSocket错误
             xfWs.on('error', (error) => {
                 clientWs.send(JSON.stringify({
